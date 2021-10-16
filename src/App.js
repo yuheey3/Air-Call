@@ -1,6 +1,7 @@
 import './App.css';
 import './styles/body.css';
 import './styles/header.css';
+import './styles/footer.css';
 import Header from './components/header.js';
 import Footer from './components/footer.js';
 
