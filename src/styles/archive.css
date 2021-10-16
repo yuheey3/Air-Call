@@ -1,0 +1,9 @@
+.archive {
+    width: 376px;
+    height: 485px;
+    z-index: 100;
+  
+    background: #E8E8E8;
+    border-radius: 3px;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, .9);
+  }

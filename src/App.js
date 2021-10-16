@@ -2,6 +2,9 @@ import './App.css';
 import './styles/body.css';
 import './styles/header.css';
 import './styles/footer.css';
+import './styles/activityFeed.css'
+import './styles/activityDetail.css'
+import './styles/archive.css'
 import Header from './components/header.js';
 import Footer from './components/footer.js';
 import { Tabs, Tab, AppBar } from "@material-ui/core";
