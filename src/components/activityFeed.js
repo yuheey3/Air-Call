@@ -14,14 +14,12 @@ class ActivityFeed extends Component {
             items: [],
             tmpItems: [],
             isLoaded: false,
-           
         }
-
-        this.itemTotal = this.itemTotal.bind(this);
         this.archiveAllCalls = this.archiveAllCalls.bind(this);
-     
     }
+
     componentDidMount() {
+        //get all calls
         fetch('https://aircall-job.herokuapp.com/activities')
             .then(res => res.json())
             .then(json => {
@@ -30,11 +28,6 @@ class ActivityFeed extends Component {
                     items: json,
                 })
             });
-    }
-
-    itemTotal(items) {
-        var total = items.length;
-        return total;
     }
 
     archiveAllCalls = async () => {
@@ -46,7 +39,7 @@ class ActivityFeed extends Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ is_archived: true })
         };
-
+        //archive all calls
         for (let i = 0; i < this.state.tmpItems.length; i++) {
             fetch(`https://aircall-job.herokuapp.com/activities/${this.state.tmpItems[i]}`, requestOptions)
                 .then(response => response.json())
@@ -59,21 +52,19 @@ class ActivityFeed extends Component {
     }
 
     render() {
-     
-        //declare item
-        var { isLoaded, icons, tmpItems } = this.state;
 
-        //filter Unarchived
+        var { isLoaded, tmpItems } = this.state;
+
+        //filter Unarchived calls
         const unArchiveItems = this.state.items.filter(item => {
             return (item.is_archived === false);
         });
 
-
+        //store unarchived calls to tmpItems array
         for (let i = 0; i < unArchiveItems.length; i++) {
             tmpItems.push(unArchiveItems[i].id)
             console.log(tmpItems[i]);
         }
-
 
         if (!isLoaded) {
             return <div>Loading...</div>
@@ -98,10 +89,8 @@ class ActivityFeed extends Component {
                         <div className="card">
                             <Grid>
                                 <div className="icon">
-                        
-                                {item.call_type === "answered" ? <PhoneInTalkIcon /> : <PhoneCallbackIcon />} 
-                                  
-                                 </div> 
+                                    {item.call_type === "answered" ? <PhoneInTalkIcon /> : <PhoneCallbackIcon />}
+                                </div>
                             </Grid>
                             <Grid item xs={12} sm container>
                                 <span className="title"> {item.from} <br /></span>
@@ -119,5 +108,4 @@ class ActivityFeed extends Component {
         )
     }
 }
-
 export default ActivityFeed;

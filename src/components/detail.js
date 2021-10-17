@@ -15,7 +15,6 @@ class Detail extends Component {
         fetch(`https://aircall-job.herokuapp.com/activities/${this.props.id}`)
             .then(res => res.json())
             .then(json => {
-
                 this.setState({
                     isLoaded: true,
                     items: json,
@@ -36,7 +35,6 @@ class Detail extends Component {
 
         this.goToActivePage();
     }
-
 
     //unarchive 
     unArchiveData() {
@@ -71,14 +69,11 @@ class Detail extends Component {
         //wait to archive all data
         await delay(200);
 
-
         window.location = 'http://localhost:3000/archive';
     }
 
-
-
     render() {
-        //declare item
+
         var { isLoaded, items } = this.state;
 
         if (!isLoaded) {
@@ -93,7 +88,6 @@ class Detail extends Component {
                 <div className="from">
                     {this.state.items.from}<br />
                 </div>
-
                 <div className="detailCard" >
                     <div className="content"><br /> <br />
                         tried to call on {this.state.items.via}<br /><br />
@@ -107,15 +101,11 @@ class Detail extends Component {
                         Duration: {this.state.items.duration} seconds
                     </div>
                 </div>
-
                 <div className="button">
                     <Button variant="contained" onClick={() => this.state.items.is_archived ? this.unArchiveData() : this.archiveData()}> {buttonText}</Button>
                 </div>
             </div>
-
         )
-
     }
 }
-
 export default Detail;

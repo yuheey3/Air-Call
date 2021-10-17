@@ -37,7 +37,7 @@ class Archive extends Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ is_archived: false })
         };
-        
+        //unarchive all calls
         for (let i = 0; i < this.state.tmpItems.length; i++) {
             fetch(`https://aircall-job.herokuapp.com/activities/${this.state.tmpItems[i]}`, requestOptions)
                 .then(response => response.json())
@@ -50,14 +50,15 @@ class Archive extends Component {
     }
 
     render() {
-        //declare item
-        var { isLoaded, items, tmpItems } = this.state;
 
-        //filter archived
+        var { isLoaded, tmpItems } = this.state;
+
+        //filter archived calls
         const archiveItems = this.state.items.filter(item => {
             return (item.is_archived === true);
         });
 
+        //store archived calls to tmpItems array
         for (let i = 0; i < archiveItems.length; i++) {
             tmpItems.push(archiveItems[i].id)
             console.log(tmpItems[i]);
@@ -76,13 +77,9 @@ class Archive extends Component {
                     </div>
                     <p className="title">Unarchive all calls</p>
                 </div>
-
-
                 {archiveItems.map(item => (
-
                     <ul key={item.id} onClick={() => { this.props.history.push(`/detail/${item.id}`) }}>
                         <br />
-
                         <Divider> {new Date(item.created_at).toLocaleDateString()}</Divider><br />
                         <div className="card">
                             <Grid>
