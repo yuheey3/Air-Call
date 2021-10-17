@@ -16,7 +16,7 @@ class Footer extends Component {
       items: [],
     }
   }
-  
+
   componentDidMount() {
     fetch('https://aircall-job.herokuapp.com/activities')
       .then(res => res.json())
@@ -24,21 +24,20 @@ class Footer extends Component {
         this.setState({
           isLoaded: true,
           items: json,
-
         })
       });
   }
 
   render() {
 
-        //filter Unarchived
-         const unArchiveItems = this.state.items.filter(item => {
-          return (item.is_archived === false);
-       });
+    //filter Unarchived
+    const unArchiveItems = this.state.items.filter(item => {
+      return (item.is_archived === false);
+    });
 
-       //the number of unarchived phone call for Badge
-          var len =  unArchiveItems.length;
-          console.log(len);
+    //the number of unarchived phone call for Badge
+    var len = unArchiveItems.length;
+    console.log(len);
 
     return (
       <footer>
@@ -69,5 +68,4 @@ class Footer extends Component {
     );
   };
 };
-
 export default Footer;

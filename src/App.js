@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 import Header from './components/header.js';
 import Footer from './components/footer.js';
 import Detail from './components/detail.js'
-import { Tabs, Tab, AppBar } from "@material-ui/core";
+import { Tabs, Tab } from "@material-ui/core";
 import { Route, BrowserRouter, Switch, Link } from "react-router-dom";
 import SyncIcon from '@mui/icons-material/Sync';
 import ActivityFeed from './components/activityFeed';
