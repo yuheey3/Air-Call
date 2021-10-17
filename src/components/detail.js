@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import Axios from 'axios';
 
 class Detail extends Component {
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -19,6 +21,17 @@ class Detail extends Component {
                     items: json,
                 })
             });
+    }
+
+    archiveData(){
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({  is_archived: true })
+        };
+        fetch(`https://aircall-job.herokuapp.com/activities/${this.props.id}`, requestOptions)
+            .then(response => response.json())
+            .then(data => this.setState({ items: data.id }));
     }
 
     render() {
@@ -49,6 +62,7 @@ class Detail extends Component {
                         Duration: {this.state.items.duration} seconds
                     </div>
                 </div>
+                <button onClick={() => this.archiveData() }>Archive</button>
             </div>
 
         )
