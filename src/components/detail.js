@@ -32,6 +32,7 @@ class Detail extends Component {
         fetch(`https://aircall-job.herokuapp.com/activities/${this.props.id}`, requestOptions)
             .then(response => response.json())
             .then(data => this.setState({ items: data.id }));
+           // window.location = 'http://localhost:3000/';
     }
 
     render() {

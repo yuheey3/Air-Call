@@ -3,12 +3,7 @@ import Divider from '@mui/material/Divider';
 import PhoneCallbackIcon from '@mui/icons-material/PhoneCallback';
 import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 import Grid from '@mui/material/Grid';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Button from '@mui/material/Button';
+
 
 class ActivityFeed extends Component {
 
@@ -18,8 +13,9 @@ class ActivityFeed extends Component {
             items: [],
             isLoaded: false,
         }
+        this.itemTotal = this.itemTotal.bind(this);
     }
-   
+
     componentDidMount() {
         fetch('https://aircall-job.herokuapp.com/activities')
             .then(res => res.json())
@@ -30,12 +26,20 @@ class ActivityFeed extends Component {
                 })
             });
     }
+    itemTotal(items) {
+        var total = items.length;
+        return total;
+    }
 
     render() {
-    
-        
         //declare item
-        var { isLoaded, items } = this.state;
+        var { isLoaded } = this.state;
+
+        //filter Unarchived
+        const unArchiveItems = this.state.items.filter(item => {
+            return (item.is_archived === false);
+        });
+
 
         if (!isLoaded) {
             return <div>Loading...</div>
@@ -50,11 +54,13 @@ class ActivityFeed extends Component {
                     </div>
                     <p className="title">Archive all calls</p>
                 </div>
-    
-                {items.map(item => (
+
+
+                {unArchiveItems.map(item => (
 
                     <ul key={item.id} onClick={() => { this.props.history.push(`/detail/${item.id}`) }}>
                         <br />
+
                         <Divider> {new Date(item.created_at).toLocaleDateString()}</Divider><br />
                         <div className="card">
                             <Grid>
@@ -68,12 +74,13 @@ class ActivityFeed extends Component {
                             </Grid>
                             <Grid>
                                 <span className="time">
-                                {new Date(item.created_at).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}
+                                    {new Date(item.created_at).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}
                                 </span>
                             </Grid>
                         </div>
 
                     </ul>
+
 
                 ))};
             </div>

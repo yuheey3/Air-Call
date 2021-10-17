@@ -3,7 +3,6 @@ import './styles/body.css';
 import './styles/header.css';
 import './styles/footer.css';
 import './styles/activityFeed.css'
-import './styles/activityDetail.css'
 import './styles/archive.css'
 import './styles/detail.css'
 import React, { Component } from 'react';
@@ -13,7 +12,6 @@ import Detail from './components/detail.js'
 import { Tabs, Tab, AppBar } from "@material-ui/core";
 import { Route, BrowserRouter, Switch, Link } from "react-router-dom";
 import SyncIcon from '@mui/icons-material/Sync';
-import ActivityDetail from './components/activityDetail';
 import ActivityFeed from './components/activityFeed';
 import Archive from './components/archive';
 
