@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
+import Button from '@mui/material/Button';
 
 class Detail extends Component {
     
@@ -23,6 +23,7 @@ class Detail extends Component {
             });
     }
 
+    //archive 
     archiveData(){
         const requestOptions = {
             method: 'POST',
@@ -32,25 +33,71 @@ class Detail extends Component {
         fetch(`https://aircall-job.herokuapp.com/activities/${this.props.id}`, requestOptions)
             .then(response => response.json())
             .then(data => this.setState({ items: data.id }));
-           // window.location = 'http://localhost:3000/';
+         
+            this.goToActivePage();
     }
 
+
+    //unarchive 
+    unArchiveData(){
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({  is_archived: false })
+        };
+        fetch(`https://aircall-job.herokuapp.com/activities/${this.props.id}`, requestOptions)
+            .then(response => response.json())
+            .then(data => this.setState({ items: data.id }));
+         
+            this.goToArchivedPage();
+    }
+
+    //go to activityFeed page
+    goToActivePage = async () => {
+        let promise = new Promise((resolve, reject) => {
+            setTimeout(() => resolve("Suceessfuly archived!"), 1000)
+        });
+    
+        let result = await promise
+        
+        alert(result);
+
+        window.location = 'http://localhost:3000/activityFeed';
+    }
+
+       //go to archive page
+       goToArchivedPage = async () => {
+        let promise = new Promise((resolve, reject) => {
+            setTimeout(() => resolve("Suceessfuly Unarchived!"), 1000)
+        });
+    
+        let result = await promise
+        
+        alert(result);
+
+        window.location = 'http://localhost:3000/archive';
+    }
+
+  
+
     render() {
-
-
         //declare item
         var { isLoaded, items } = this.state;
 
         if (!isLoaded) {
             return <div>Loading...</div>
         }
+        //button text depends on archive condition
+        const buttonText = this.state.items.is_archived ? "Unarchive" : "Archive";
 
         return (
+           
             <div className="detail">
                 <div className="from">
                     {this.state.items.from}<br />
                 </div>
-                <div className="detailCard">
+               
+                <div className="detailCard" >
                     <div className="content"><br /> <br />
                         tried to call on {this.state.items.via}<br /><br />
                         <span className="space">
@@ -63,8 +110,12 @@ class Detail extends Component {
                         Duration: {this.state.items.duration} seconds
                     </div>
                 </div>
-                <button onClick={() => this.archiveData() }>Archive</button>
-            </div>
+                
+                <div className="button">
+                <Button  variant="contained" onClick={() => this.state.items.is_archived ? this.unArchiveData() : this.archiveData()}> {buttonText}</Button>
+                </div>
+                </div>
+           
 
         )
 
