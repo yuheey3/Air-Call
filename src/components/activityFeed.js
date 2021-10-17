@@ -3,6 +3,7 @@ import Divider from '@mui/material/Divider';
 import PhoneCallbackIcon from '@mui/icons-material/PhoneCallback';
 import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 import Grid from '@mui/material/Grid';
+import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
 
 
 class ActivityFeed extends Component {
@@ -13,12 +14,13 @@ class ActivityFeed extends Component {
             items: [],
             tmpItems: [],
             isLoaded: false,
+           
         }
 
         this.itemTotal = this.itemTotal.bind(this);
         this.archiveAllCalls = this.archiveAllCalls.bind(this);
+     
     }
-
     componentDidMount() {
         fetch('https://aircall-job.herokuapp.com/activities')
             .then(res => res.json())
@@ -36,25 +38,30 @@ class ActivityFeed extends Component {
     }
 
     archiveAllCalls = async () => {
+
         const delay = ms => new Promise(res => setTimeout(res, ms));
+
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ is_archived: true })
         };
+
         for (let i = 0; i < this.state.tmpItems.length; i++) {
             fetch(`https://aircall-job.herokuapp.com/activities/${this.state.tmpItems[i]}`, requestOptions)
                 .then(response => response.json())
                 .then(data => this.setState({ items: data.id }));
         }
+        //wait to archive all data
         await delay(500);
 
         window.location = 'http://localhost:3000/activityFeed';
     }
 
     render() {
+     
         //declare item
-        var { isLoaded, items, tmpItems } = this.state;
+        var { isLoaded, icons, tmpItems } = this.state;
 
         //filter Unarchived
         const unArchiveItems = this.state.items.filter(item => {
@@ -91,8 +98,10 @@ class ActivityFeed extends Component {
                         <div className="card">
                             <Grid>
                                 <div className="icon">
-                                    <PhoneCallbackIcon />
-                                </div>
+                        
+                                {item.call_type === "answered" ? <PhoneInTalkIcon /> : <PhoneCallbackIcon />} 
+                                  
+                                 </div> 
                             </Grid>
                             <Grid item xs={12} sm container>
                                 <span className="title"> {item.from} <br /></span>
@@ -104,10 +113,7 @@ class ActivityFeed extends Component {
                                 </span>
                             </Grid>
                         </div>
-
                     </ul>
-
-
                 ))};
             </div>
         )

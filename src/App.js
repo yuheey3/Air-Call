@@ -23,6 +23,8 @@ class App extends Component {
     super(props);
   
   }
+  
+  //reset API
   reset() {
     fetch(`https://aircall-job.herokuapp.com/reset`)
         .then(res => res.json())
@@ -39,6 +41,7 @@ class App extends Component {
 
   render(){
     const routes = ["/activityFeed", "/archive","/detail"];
+    
   return (
     <div className='container'>
       <Header/>
@@ -69,7 +72,7 @@ class App extends Component {
                   
                 />
                 <div className="syncIcon" onClick={this.reset}>
-                <SyncIcon  />
+                <SyncIcon />
                 </div>
               </Tabs>
           )}

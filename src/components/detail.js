@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Button from '@mui/material/Button';
 
 class Detail extends Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
@@ -24,61 +24,58 @@ class Detail extends Component {
     }
 
     //archive 
-    archiveData(){
+    archiveData() {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({  is_archived: true })
+            body: JSON.stringify({ is_archived: true })
         };
         fetch(`https://aircall-job.herokuapp.com/activities/${this.props.id}`, requestOptions)
             .then(response => response.json())
             .then(data => this.setState({ items: data.id }));
-         
-            this.goToActivePage();
+
+        this.goToActivePage();
     }
 
 
     //unarchive 
-    unArchiveData(){
+    unArchiveData() {
+
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({  is_archived: false })
+            body: JSON.stringify({ is_archived: false })
         };
         fetch(`https://aircall-job.herokuapp.com/activities/${this.props.id}`, requestOptions)
             .then(response => response.json())
             .then(data => this.setState({ items: data.id }));
-         
-            this.goToArchivedPage();
+
+        this.goToArchivedPage();
     }
 
     //go to activityFeed page
     goToActivePage = async () => {
-        let promise = new Promise((resolve, reject) => {
-            setTimeout(() => resolve("Suceessfuly archived!"), 1000)
-        });
-    
-        let result = await promise
-        
-        alert(result);
+
+        const delay = ms => new Promise(res => setTimeout(res, ms));
+
+        //wait to archive all data
+        await delay(200);
 
         window.location = 'http://localhost:3000/activityFeed';
     }
 
-       //go to archive page
-       goToArchivedPage = async () => {
-        let promise = new Promise((resolve, reject) => {
-            setTimeout(() => resolve("Suceessfuly Unarchived!"), 1000)
-        });
-    
-        let result = await promise
-        
-        alert(result);
+    //go to archive page
+    goToArchivedPage = async () => {
+        const delay = ms => new Promise(res => setTimeout(res, ms));
+
+        //wait to archive all data
+        await delay(200);
+
 
         window.location = 'http://localhost:3000/archive';
     }
 
-  
+
 
     render() {
         //declare item
@@ -91,12 +88,12 @@ class Detail extends Component {
         const buttonText = this.state.items.is_archived ? "Unarchive" : "Archive";
 
         return (
-           
+
             <div className="detail">
                 <div className="from">
                     {this.state.items.from}<br />
                 </div>
-               
+
                 <div className="detailCard" >
                     <div className="content"><br /> <br />
                         tried to call on {this.state.items.via}<br /><br />
@@ -110,12 +107,11 @@ class Detail extends Component {
                         Duration: {this.state.items.duration} seconds
                     </div>
                 </div>
-                
+
                 <div className="button">
-                <Button  variant="contained" onClick={() => this.state.items.is_archived ? this.unArchiveData() : this.archiveData()}> {buttonText}</Button>
+                    <Button variant="contained" onClick={() => this.state.items.is_archived ? this.unArchiveData() : this.archiveData()}> {buttonText}</Button>
                 </div>
-                </div>
-           
+            </div>
 
         )
 
