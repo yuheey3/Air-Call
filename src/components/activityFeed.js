@@ -3,6 +3,12 @@ import Divider from '@mui/material/Divider';
 import PhoneCallbackIcon from '@mui/icons-material/PhoneCallback';
 import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 import Grid from '@mui/material/Grid';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
 
 class ActivityFeed extends Component {
 
@@ -13,7 +19,7 @@ class ActivityFeed extends Component {
             isLoaded: false,
         }
     }
-
+   
     componentDidMount() {
         fetch('https://aircall-job.herokuapp.com/activities')
             .then(res => res.json())
@@ -26,7 +32,9 @@ class ActivityFeed extends Component {
     }
 
     render() {
-
+    
+        
+        //declare item
         var { isLoaded, items } = this.state;
 
         if (!isLoaded) {
@@ -36,15 +44,16 @@ class ActivityFeed extends Component {
         return (
             <div className="activity">
                 <br />
-                <div className="card">
+                <div className="card" >
                     <div className="icon">
                         <ArchiveOutlinedIcon />
                     </div>
                     <p className="title">Archive all calls</p>
                 </div>
+    
                 {items.map(item => (
 
-                    <ul key={item.id}>
+                    <ul key={item.id} onClick={() => { this.props.history.push(`/detail/${item.id}`) }}>
                         <br />
                         <Divider> {new Date(item.created_at).toLocaleDateString()}</Divider><br />
                         <div className="card">

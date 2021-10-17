@@ -6,14 +6,16 @@ import Badge from '@mui/material/Badge';
 import Toolbar from '@mui/material/Toolbar';
 import VoicemailIcon from '@mui/icons-material/Voicemail';
 import StyledFab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
 import AppsIcon from '@mui/icons-material/Apps';
 
 const Footer = () => {
+
+
   return (
     <footer>
       <div>
         <Toolbar>
+      
           <div className="tabIcon">
             <Badge badgeContent={4} color="primary">
               <LocalPhoneIcon color="action" />
