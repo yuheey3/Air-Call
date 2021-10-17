@@ -15,8 +15,8 @@ class Footer extends Component {
     this.state = {
       items: [],
     }
-    this.itemTotal = this.itemTotal.bind(this);
   }
+  
   componentDidMount() {
     fetch('https://aircall-job.herokuapp.com/activities')
       .then(res => res.json())
@@ -24,24 +24,28 @@ class Footer extends Component {
         this.setState({
           isLoaded: true,
           items: json,
+
         })
       });
   }
-  itemTotal(items) {
-    var total = items.length;
-    return total;
-  }
+
   render() {
 
-    //declare item
-    var { items } = this.state;
+        //filter Unarchived
+         const unArchiveItems = this.state.items.filter(item => {
+          return (item.is_archived === false);
+       });
+
+       //the number of unarchived phone call for Badge
+          var len =  unArchiveItems.length;
+          console.log(len);
 
     return (
       <footer>
         <div>
           <Toolbar>
             <div className="tabIcon">
-              <Badge badgeContent={this.itemTotal(items)} color="primary">
+              <Badge badgeContent={len} color="primary">
                 <LocalPhoneIcon color="action" />
               </Badge>
             </div>
