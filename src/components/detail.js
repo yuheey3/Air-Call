@@ -33,12 +33,22 @@ class Detail extends Component {
 
         return (
             <div className="detail">
-              {this.state.items.from}
-                tried to call on {this.state.items.via}<br />
-                {new Date(this.state.items.created_at).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}<br />
-                 To: {this.state.items.to}<br />
-                 Duration: {this.state.items.duration}<br />
-                Call type: {this.state.items.calltype}<br />
+                <div className="from">
+                    {this.state.items.from}<br />
+                </div>
+                <div className="detailCard">
+                    <div className="content"><br /> <br />
+                        tried to call on {this.state.items.via}<br /><br />
+                        <span className="space">
+                            {new Date(items.created_at).toLocaleDateString()}</span>
+                        <span className="space">
+                            {new Date(this.state.items.created_at).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
+                        <span className="space">
+                            {this.state.items.call_type}<br /><br /></span>
+                        To: {this.state.items.to}<br /><br />
+                        Duration: {this.state.items.duration} seconds
+                    </div>
+                </div>
             </div>
 
         )

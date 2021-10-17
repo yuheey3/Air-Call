@@ -6,15 +6,23 @@
     border-radius: 3px;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, .9);
   }
-
-  .card {
-    width: 330px;
-    height: 55px;
+  .from{
+    font-weight: bold;
+    font-size: large;
     display: flex;
-    justify-content: left;
+    justify-content: center;
+    align-items: center;
+    padding-top:30px;
+}
+
+  .detailCard {
+    width: 330px;
+    height: 180px;
+    justify-content: center;
     align-items: center;
     position: relative;
     margin-left: 20px;
+    margin-top: 50px;
     border-radius: .80rem;
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, .3);
     background-color: white;
@@ -22,14 +30,14 @@
     transition: 150ms;
     cursor: pointer;
     transform: perspective(1000px) rotateY(var(--rotate-y, 0)) translateY(var(--translate-y, 0));
+    font-size: medium;
+    font-weight: bold; 
   }
-  .icon{
-      margin-left: 20px;
-      margin-right: 10px;
-  }
-  .title{
-      font-weight: bold;
-  }
-  .time{
-    margin-right: 10px;
-  }
+.content{
+    margin-left: 30px;
+}
+
+.space{
+    color: red;
+    margin-right: 30px;
+}
