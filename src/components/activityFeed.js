@@ -32,7 +32,7 @@ class ActivityFeed extends Component {
 
     archiveAllCalls = async () => {
 
-        const delay = ms => new Promise(res => setTimeout(res, ms));
+      //  const delay = ms => new Promise(res => setTimeout(res, ms));
 
         const requestOptions = {
             method: 'POST',
@@ -46,9 +46,9 @@ class ActivityFeed extends Component {
                 .then(data => this.setState({ items: data.id }));
         }
         //wait to archive all data
-        await delay(500);
-
-        window.location = 'https://hardcore-joliot-dd08e9.netlify.app/activityFeed';
+      //  await delay(500);
+    //  return this.props.history.push('/activityFeed')
+       window.location = 'http://localhost:3000/activityFeed';
     }
 
     render() {
