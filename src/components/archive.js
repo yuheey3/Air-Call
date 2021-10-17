@@ -46,7 +46,7 @@ class Archive extends Component {
         //wait to archive all data
         await delay(500);
 
-        window.location = 'http://localhost:3000/archive';
+        window.location = 'https://hardcore-joliot-dd08e9.netlify.app/archive';
     }
 
     render() {

@@ -10,7 +10,7 @@ import Header from './components/header.js';
 import Footer from './components/footer.js';
 import Detail from './components/detail.js'
 import { Tabs, Tab } from "@material-ui/core";
-import { Route, BrowserRouter, Switch, Link } from "react-router-dom";
+import { Route, BrowserRouter, Switch, Link, Redirect  } from "react-router-dom";
 import SyncIcon from '@mui/icons-material/Sync';
 import ActivityFeed from './components/activityFeed';
 import Archive from './components/archive';
@@ -19,7 +19,7 @@ class App extends Component {
   //constructor 
   constructor(props) {
     super(props);
-
+    this.reset = this.reset.bind(this);
   }
 
   //reset API
@@ -33,7 +33,8 @@ class App extends Component {
           items: json,
         })
       });
-    window.location = 'http://localhost:3000/activityFeed';
+      // <Redirect to="/activityFeed"/>
+     window.location = 'https://hardcore-joliot-dd08e9.netlify.app/activityFeed';
   }
 
   render() {

@@ -59,7 +59,7 @@ class Detail extends Component {
         //wait to archive all data
         await delay(200);
 
-        window.location = 'http://localhost:3000/activityFeed';
+        window.location = 'https://hardcore-joliot-dd08e9.netlify.app/activityFeed';
     }
 
     //go to archive page
@@ -69,7 +69,7 @@ class Detail extends Component {
         //wait to archive all data
         await delay(200);
 
-        window.location = 'http://localhost:3000/archive';
+        window.location = 'https://hardcore-joliot-dd08e9.netlify.app/archive';
     }
 
     render() {

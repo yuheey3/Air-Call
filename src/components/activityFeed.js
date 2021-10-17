@@ -48,7 +48,7 @@ class ActivityFeed extends Component {
         //wait to archive all data
         await delay(500);
 
-        window.location = 'http://localhost:3000/activityFeed';
+        window.location = 'https://hardcore-joliot-dd08e9.netlify.app/activityFeed';
     }
 
     render() {
