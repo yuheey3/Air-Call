@@ -14,6 +14,7 @@ import ActivityDetail from './components/activityDetail';
 import ActivityFeed from './components/activityFeed';
 import Archive from './components/archive';
 
+
 function App() {
   const routes = ["/activityFeed", "/archive"];
   return (
