@@ -30,7 +30,7 @@ class Archive extends Component {
 
     unArchiveAllCalls = async () => {
 
-       // const delay = ms => new Promise(res => setTimeout(res, ms));
+        const delay = ms => new Promise(res => setTimeout(res, ms));
 
         const requestOptions = {
             method: 'POST',
@@ -44,7 +44,7 @@ class Archive extends Component {
                 .then(data => this.setState({ items: data.id }));
         }
         //wait to archive all data
-        //await delay(500);
+        await delay(200);
 
         window.location = 'http://localhost:3000/archive';
     }

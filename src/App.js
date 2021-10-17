@@ -33,7 +33,6 @@ class App extends Component {
           items: json,
         })
       });
-      this.setState({ redirect: "/activityFeed" });
       window.location = 'http://localhost:3000/activityFeed';
   }
 
