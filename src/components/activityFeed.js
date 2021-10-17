@@ -11,9 +11,12 @@ class ActivityFeed extends Component {
         super(props);
         this.state = {
             items: [],
+            tmpItems: [],
             isLoaded: false,
         }
+
         this.itemTotal = this.itemTotal.bind(this);
+        this.archiveAllCalls = this.archiveAllCalls.bind(this);
     }
 
     componentDidMount() {
@@ -26,19 +29,43 @@ class ActivityFeed extends Component {
                 })
             });
     }
+
     itemTotal(items) {
         var total = items.length;
         return total;
     }
 
+    archiveAllCalls = async () => {
+        const delay = ms => new Promise(res => setTimeout(res, ms));
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ is_archived: true })
+        };
+        for (let i = 0; i < this.state.tmpItems.length; i++) {
+            fetch(`https://aircall-job.herokuapp.com/activities/${this.state.tmpItems[i]}`, requestOptions)
+                .then(response => response.json())
+                .then(data => this.setState({ items: data.id }));
+        }
+        await delay(500);
+
+        window.location = 'http://localhost:3000/activityFeed';
+    }
+
     render() {
         //declare item
-        var { isLoaded } = this.state;
+        var { isLoaded, items, tmpItems } = this.state;
 
         //filter Unarchived
         const unArchiveItems = this.state.items.filter(item => {
             return (item.is_archived === false);
         });
+
+
+        for (let i = 0; i < unArchiveItems.length; i++) {
+            tmpItems.push(unArchiveItems[i].id)
+            console.log(tmpItems[i]);
+        }
 
 
         if (!isLoaded) {
@@ -48,13 +75,12 @@ class ActivityFeed extends Component {
         return (
             <div className="activity">
                 <br />
-                <div className="card" >
+                <div className="card" onClick={this.archiveAllCalls} >
                     <div className="icon">
                         <ArchiveOutlinedIcon />
                     </div>
                     <p className="title">Archive all calls</p>
                 </div>
-
 
                 {unArchiveItems.map(item => (
 

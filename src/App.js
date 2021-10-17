@@ -23,6 +23,19 @@ class App extends Component {
     super(props);
   
   }
+  reset() {
+    fetch(`https://aircall-job.herokuapp.com/reset`)
+        .then(res => res.json())
+        .then(json => {
+
+            this.setState({
+                isLoaded: true,
+                items: json,
+            })
+        });
+        window.location = 'http://localhost:3000/activityFeed';
+}
+
 
   render(){
     const routes = ["/activityFeed", "/archive","/detail"];
@@ -55,8 +68,8 @@ class App extends Component {
                   to={routes[1]}
                   
                 />
-                <div className="syncIcon">
-                <SyncIcon />
+                <div className="syncIcon" onClick={this.reset}>
+                <SyncIcon  />
                 </div>
               </Tabs>
           )}
