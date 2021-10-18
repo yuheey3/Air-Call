@@ -5,7 +5,6 @@ import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 import Grid from '@mui/material/Grid';
 import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
 
-
 class ActivityFeed extends Component {
 
     constructor(props) {
@@ -29,6 +28,10 @@ class ActivityFeed extends Component {
                 })
             });
     }
+    //refresh page
+    refreshPage() {
+        window.location.reload(false);
+    }
 
     archiveAllCalls = async () => {
 
@@ -46,20 +49,18 @@ class ActivityFeed extends Component {
                 .then(data => this.setState({ items: data.id }));
         }
         //wait to archive all data
-       await delay(200);
-       //  return this.props.history.push('/activityFeed')
-       window.location = 'http://localhost:3000/activityFeed';
+        await delay(300);
+
+        this.refreshPage();
     }
 
     render() {
 
-        var { isLoaded, tmpItems } = this.state;
+        var { isLoaded, tmpItems, items } = this.state;
 
-        //filter Unarchived calls
-        const unArchiveItems = this.state.items.filter(item => {
-            return (item.is_archived === false);
+        const unArchiveItems = items.filter(items => {
+            return (items.is_archived === false);
         });
-
         //store unarchived calls to tmpItems array
         for (let i = 0; i < unArchiveItems.length; i++) {
             tmpItems.push(unArchiveItems[i].id)

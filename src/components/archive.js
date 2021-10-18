@@ -4,7 +4,6 @@ import PhoneCallbackIcon from '@mui/icons-material/PhoneCallback';
 import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 import Grid from '@mui/material/Grid';
 
-
 class Archive extends Component {
 
     constructor(props) {
@@ -27,7 +26,10 @@ class Archive extends Component {
                 })
             });
     }
-
+    //refresh page
+    refreshPage() {
+        window.location.reload(false);
+    }
     unArchiveAllCalls = async () => {
 
         const delay = ms => new Promise(res => setTimeout(res, ms));
@@ -44,9 +46,9 @@ class Archive extends Component {
                 .then(data => this.setState({ items: data.id }));
         }
         //wait to archive all data
-        await delay(200);
+        await delay(300);
 
-        window.location = 'http://localhost:3000/archive';
+        this.refreshPage();
     }
 
     render() {

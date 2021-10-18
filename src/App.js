@@ -10,15 +10,22 @@ import Header from './components/header.js';
 import Footer from './components/footer.js';
 import Detail from './components/detail.js'
 import { Tabs, Tab } from "@material-ui/core";
-import { Route, BrowserRouter, Switch, Link, Redirect} from "react-router-dom";
+import { Route, BrowserRouter, Switch, Link, Redirect } from "react-router-dom";
 import SyncIcon from '@mui/icons-material/Sync';
 import ActivityFeed from './components/activityFeed';
 import Archive from './components/archive';
+import ExtBrowserRouter from './router/helper';
+import { history } from './router/helper';
 
 class App extends Component {
   //constructor 
   constructor(props) {
     super(props);
+    this.state = {
+      items: [],
+      tmpItems: [],
+      isLoaded: false,
+    }
     this.reset = this.reset.bind(this);
   }
 
@@ -33,55 +40,67 @@ class App extends Component {
           items: json,
         })
       });
-      window.location = 'http://localhost:3000/activityFeed';
+
+    history.push('/');
+    this.refreshPage();
+  }
+  //refresh page
+  refreshPage() {
+    window.location.reload(false);
   }
 
   render() {
- 
-    const routes = ["/activityFeed", "/archive", "/detail"];
+
+    const routes = ["/activityFeed", "/archive"];
 
     return (
       <div className='container'>
         <Header />
         <div className="tab">
           <BrowserRouter>
-            <Route
-              path="/"
-              render={(history) => (
-                <Tabs
-                  value={
-                    history.location.pathname !== "/"
-                      ? history.location.pathname
-                      : false
-                  }
-                >
-                  {console.log(history.location.pathname)}
-                  <Tab
-                    value={routes[0]}
-                    label="Inbox"
-                    component={Link}
-                    to={routes[0]}
-                  />
-                  <Tab
-                    value={routes[1]}
-                    label="Archived calls"
-                    component={Link}
-                    to={routes[1]}
+            <ExtBrowserRouter>
+              <Route
+                path="/"
+                render={(history) => (
+                  <Tabs
+                    value={
+                      history.location.pathname !== "/"
+                        ? history.location.pathname
+                        : false
+                    }
+                  >
+                    {console.log(history.location.pathname)}
+                    <Tab
+                      value={routes[0]}
+                      label="Inbox"
+                      component={Link}
+                      to={routes[0]}
+                    />
+                    <Tab
+                      value={routes[1]}
+                      label="Archived calls"
+                      component={Link}
+                      to={routes[1]}
 
-                  />
-                  <div className="syncIcon" onClick={this.reset}>
-                    <SyncIcon />
-                  </div>
-                </Tabs>
-              )}
-            />
-            <Switch>
-              <Route path="/activityFeed" component={ActivityFeed} />
-              <Route path="/archive" component={Archive} />
-              <Route path="/detail/:id" render={(props) => (
-                <Detail id={props.match.params.id} />
-              )} />
-            </Switch>
+                    />
+                    <div className="syncIcon" onClick={this.reset}>
+                      <SyncIcon />
+                    </div>
+                  </Tabs>
+                )}
+              />
+              <Switch>
+                <Route path="/activityFeed" component={ActivityFeed} />
+                <Route exact
+                  path={"/activityFeed"}
+                  render={props => (
+                    <ActivityFeed {...props} />)} />
+                <Route path="/archive" component={Archive} />
+                <Route path="/detail/:id" render={(props) => (
+                  <Detail id={props.match.params.id} />
+                )} />
+              </Switch>
+            </ExtBrowserRouter>
           </BrowserRouter>
 
         </div>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Button from '@mui/material/Button';
+import {history} from '../router/helper';
 
 class Detail extends Component {
 
@@ -21,7 +22,10 @@ class Detail extends Component {
                 })
             });
     }
-
+    //refresh page
+    refreshPage() {
+        window.location.reload(false);
+    }
     //archive 
     archiveData() {
         const requestOptions = {
@@ -34,6 +38,7 @@ class Detail extends Component {
             .then(data => this.setState({ items: data.id }));
 
         this.goToActivePage();
+     
     }
 
     //unarchive 
@@ -53,13 +58,14 @@ class Detail extends Component {
 
     //go to activityFeed page
     goToActivePage = async () => {
-
+       
         const delay = ms => new Promise(res => setTimeout(res, ms));
 
         //wait to archive all data
         await delay(200);
 
-        window.location = 'http://localhost:3000/activityFeed';
+        history.push('/activityFeed');
+        this.refreshPage();
     }
 
     //go to archive page
@@ -69,7 +75,8 @@ class Detail extends Component {
         //wait to archive all data
         await delay(200);
 
-        window.location = 'http://localhost:3000/archive';
+        history.push('/archive');
+        this.refreshPage();
     }
 
     render() {
