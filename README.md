@@ -4,4 +4,5 @@
 
 ## Summary
 This app allows user to see call records and activities.
+
 User can archive and unarchive calls.
